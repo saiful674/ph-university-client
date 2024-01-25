@@ -1,7 +1,8 @@
-import { JwtPayload } from "jwt-decode";
-import { useForm } from "react-hook-form";
+import { Button, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import PhForm from "../components/forms/PhForm";
+import PhInput from "../components/forms/PhInput";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { TUser, setUser } from "../redux/features/auth/authSlice";
 import { useAppDispatch } from "../redux/hooks";
@@ -10,40 +11,46 @@ import { varifyToken } from "../utils/varifyToken";
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
 
   const [login] = useLoginMutation();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: { userId: string; password: string }) => {
+    console.log(data);
     const toastId = toast.loading("loggin in...");
     const userInfo = {
-      id: data.id,
+      id: data.userId,
       password: data.password,
     };
     try {
       const res = await login(userInfo).unwrap();
       // decoded access token and get user info
-      const user: JwtPayload = varifyToken(res.data.accessToken) as TUser;
+      const user = varifyToken(res.data.accessToken) as TUser;
       // set user data
       dispatch(setUser({ user, token: res.data.accessToken }));
       toast.success("Login successful", { id: toastId, duration: 2000 });
       navigate(`/${user.role}/dashboard`);
-    } catch (error) {
+    } catch (err) {
       if (err) {
         toast.error("Something went wrong!", { id: toastId, duration: 2000 });
       }
     }
   };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label>User Id</label>
-      <input type="text" {...register("id")} />
+    <Row justify={"center"} align={"middle"} style={{ height: "100vh" }}>
+      <PhForm onSubmit={onSubmit}>
+        <PhInput name={"userId"} type={"text"} label={"User Id"} />
 
-      <label>Password</label>
-      <input type="text" {...register("password")} />
+        <PhInput name={"password"} type={"text"} label={"Password"} />
 
-      <input type="submit" />
-    </form>
+        <Button
+          htmlType="submit"
+          style={{ marginTop: "10px", fontWeight: "500" }}
+        >
+          Submit
+        </Button>
+      </PhForm>
+    </Row>
   );
 };
 
