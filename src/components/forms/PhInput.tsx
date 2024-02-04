@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Form, Input } from "antd";
 import { Controller } from "react-hook-form";
 
 type TPhInputProps = {
@@ -8,19 +8,14 @@ type TPhInputProps = {
 };
 const PhInput = ({ type, name, label }: TPhInputProps) => {
   return (
-    <>
-      {label ? (
-        <label
-          style={{ padding: "10px 0 0", display: "block", fontWeight: "500" }}
-        >
-          {label}
-        </label>
-      ) : null}
-      <Controller
-        name={name}
-        render={({ field }) => <Input {...field} type={type} />}
-      ></Controller>
-    </>
+    <Controller
+      name={name}
+      render={({ field }) => (
+        <Form.Item label={label}>
+          <Input {...field} type={type} />
+        </Form.Item>
+      )}
+    ></Controller>
   );
 };
 

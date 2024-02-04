@@ -1,3 +1,4 @@
+import { Col, Flex, Form } from "antd";
 import { ReactNode } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
@@ -10,9 +11,15 @@ const PhForm = ({ onSubmit, children }: TPhFormProps) => {
   const methods = useForm();
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
-    </FormProvider>
+    <Flex align="center" justify="center">
+      <Col span={6}>
+        <FormProvider {...methods}>
+          <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
+            {children}
+          </Form>
+        </FormProvider>
+      </Col>
+    </Flex>
   );
 };
 
