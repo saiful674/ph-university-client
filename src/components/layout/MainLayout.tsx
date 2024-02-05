@@ -9,7 +9,7 @@ const { Header, Content } = Layout;
 const MainLayout = () => {
   const dispatch = useAppDispatch();
   return (
-    <Layout style={{ height: "100vh" }}>
+    <Layout style={{ minHeight: "100vh" }}>
       <SideBar />
       <Layout>
         <Header style={{ padding: 0 }}>

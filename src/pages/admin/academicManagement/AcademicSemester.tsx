@@ -1,6 +1,7 @@
 import { Table, TableColumnsType, TableProps } from "antd";
+import { useState } from "react";
 import { useGetAllAcademicSemesterQuery } from "../../../redux/features/admin/academicManagement";
-import { TAcademicSemester } from "../../../types";
+import { TAcademicSemester, TQueryParam } from "../../../types";
 
 interface DataType {
   key: React.Key;
@@ -16,65 +17,79 @@ const columns: TableColumnsType<DataType> = [
     dataIndex: "name",
     filters: [
       {
-        text: "Joe",
-        value: "Joe",
+        text: "Autumn",
+        value: "Autumn",
       },
       {
-        text: "Jim",
-        value: "Jim",
+        text: "Fall",
+        value: "Fall",
+      },
+      {
+        text: "Summer",
+        value: "Summer",
       },
     ],
   },
   {
     title: "Year",
     dataIndex: "year",
+    filters: [
+      {
+        text: "2024",
+        value: "2024",
+      },
+      {
+        text: "2025",
+        value: "2025",
+      },
+      {
+        text: "2026",
+        value: "2026",
+      },
+    ],
   },
   {
     title: "Start Month",
     dataIndex: "startMonth",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
   },
   {
     title: "End Month",
     dataIndex: "endMonth",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
   },
 ];
 
-const onChange: TableProps<DataType>["onChange"] = (
-  pagination,
-  filters,
-  sorter,
-  extra
-) => {
-  console.log("params", pagination, filters, sorter, extra);
-};
 const AcademicSemester = () => {
+  const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+
   const { data: semesterData, isLoading } =
-    useGetAllAcademicSemesterQuery(undefined);
+    useGetAllAcademicSemesterQuery(params);
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
+
+  const onChange: TableProps<DataType>["onChange"] = (
+    _pagination,
+    filters,
+    _sorter,
+    extra
+  ) => {
+    if (extra.action === "filter") {
+      const queryParams: TQueryParam[] = [];
+
+      filters.name?.forEach((item) =>
+        queryParams.push({ name: "name", value: item })
+      );
+
+      filters.year?.forEach((item) =>
+        queryParams.push({ name: "year", value: item })
+      );
+
+      setParams(queryParams);
+    }
+  };
   console.log(semesterData);
+
   const semesterTableData = semesterData.data.map(
     ({ _id, name, year, startMonth, endMonth }: TAcademicSemester) => {
       return { key: _id, name, year, startMonth, endMonth };
