@@ -10,9 +10,10 @@ const PhInput = ({ type, name, label }: TPhInputProps) => {
   return (
     <Controller
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <Form.Item label={label}>
           <Input {...field} type={type} />
+          <span style={{ color: "red" }}>{fieldState?.error?.message}</span>
         </Form.Item>
       )}
     ></Controller>

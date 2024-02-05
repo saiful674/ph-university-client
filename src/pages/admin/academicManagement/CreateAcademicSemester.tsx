@@ -1,3 +1,4 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import PhForm from "../../../components/forms/PhForm";
@@ -6,6 +7,7 @@ import {
   semesterMonthsOption,
   semesterNameOptions,
 } from "../../../constant/academicManagement";
+import { createAcademicSemesterSchema } from "../../../schema/academicManagement/createAcademicSemesterSchema";
 
 const currentYear = new Date().getFullYear();
 const yearOpttions = [0, 1, 2, 3, 4, 5].map((number) => ({
@@ -26,7 +28,10 @@ const CreateAcademicSemester = () => {
     console.log(semesterData);
   };
   return (
-    <PhForm onSubmit={onSubmit}>
+    <PhForm
+      onSubmit={onSubmit}
+      resolver={zodResolver(createAcademicSemesterSchema)}
+    >
       <PhSelect options={semesterNameOptions} name="name" label="Name" />
       <PhSelect options={yearOpttions} name="year" label="Year" />
       <PhSelect
