@@ -10,7 +10,7 @@ import {
 } from "../../../constant/academicManagement";
 import { useAddAcademicSemesterMutation } from "../../../redux/features/admin/academicManagement";
 import { createAcademicSemesterSchema } from "../../../schema/academicManagement/createAcademicSemesterSchema";
-import { TResponse } from "../../../types/global";
+import { TAcademicSemester, TResponse } from "../../../types";
 
 const currentYear = new Date().getFullYear();
 const yearOpttions = [0, 1, 2, 3, 4, 5].map((number) => ({
@@ -22,6 +22,7 @@ const CreateAcademicSemester = () => {
   const [addAcademicSemester] = useAddAcademicSemesterMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Please wait");
     const name = semesterNameOptions[Number(data.name) - 1].label;
     const semesterData = {
       name: name,
@@ -31,15 +32,17 @@ const CreateAcademicSemester = () => {
       endMonth: data.endMonth,
     };
     try {
-      const res: TResponse = await addAcademicSemester(semesterData);
+      const res: TResponse<TAcademicSemester> = await addAcademicSemester(
+        semesterData
+      );
       console.log(res);
       if (res.error) {
-        toast.error(res?.error?.data?.message);
+        toast.error(res?.error?.data?.message, { id: toastId });
       } else {
-        toast.success(res?.data?.message);
+        toast.success(res?.data?.message, { id: toastId });
       }
     } catch (err) {
-      toast.error("Something went wrong");
+      toast.error("Something went wrong", { id: toastId });
     }
   };
   return (
