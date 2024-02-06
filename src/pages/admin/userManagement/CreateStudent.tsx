@@ -1,10 +1,22 @@
-import { Button, Col, Divider, Row } from "antd";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { Button, Col, Divider, Form, Input, Row } from "antd";
+import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
 import PhDatePicker from "../../../components/forms/PhDatePicker";
 import PhForm from "../../../components/forms/PhForm";
 import PhInput from "../../../components/forms/PhInput";
 import PhSelect from "../../../components/forms/PhSelect";
 import { bloodGroupOptons, genderOptons } from "../../../constant";
+import {
+  useGetAllAcademicDepartmentQuery,
+  useGetAllAcademicSemesterQuery,
+} from "../../../redux/features/admin/academicManagement";
+import { useAddStudentMutation } from "../../../redux/features/admin/userManagement";
+import {
+  TAcademicDepartment,
+  TAcademicSemester,
+  TResponse,
+} from "../../../types";
+import { TStudent } from "../../../types/userManagement.types";
 
 const studentDummyData = {
   password: "Pass@1234",
@@ -78,8 +90,48 @@ const studentDefaultData = {
   academicDepartment: "65be35cc7738dd806382dcb3",
 };
 const CreateStudent = () => {
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const [addStudent] = useAddStudentMutation();
+  const { data: departmentData, isLoading: dIsLoading } =
+    useGetAllAcademicDepartmentQuery(undefined);
+  const { data: semesterData, isLoading: sIsLoading } =
+    useGetAllAcademicSemesterQuery(undefined);
+
+  const semesterSelectOptions = semesterData?.data.map(
+    (item: TAcademicSemester) => ({
+      value: item._id,
+      label: `${item.name} ${item.year}`,
+    })
+  );
+
+  const departmentSelectOptions = departmentData?.data.map(
+    (item: TAcademicDepartment) => ({
+      value: item._id,
+      label: item.name,
+    })
+  );
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Please wait...");
+    const studentData = {
+      password: "Pass@1234",
+      student: { ...data },
+    };
+    console.log(data.image);
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(studentData));
+    formData.append("file", data.image);
+
+    try {
+      const res = (await addStudent(formData)) as TResponse<TStudent>;
+      console.log(res);
+      if (res.error) {
+        toast.error(res.error.data.message, { id: toastId });
+      } else {
+        toast.success("Student created", { id: toastId });
+      }
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
+    }
   };
   return (
     <Row>
@@ -105,6 +157,20 @@ const CreateStudent = () => {
                 options={bloodGroupOptons}
                 label="Blood Group"
               />
+            </Col>
+            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+              <Controller
+                name="image"
+                render={({ field: { onChange, value, ...field } }) => (
+                  <Form.Item label="Picture">
+                    <Input
+                      type="file"
+                      {...field}
+                      onChange={(e) => onChange(e.target.files?.[0])}
+                    />
+                  </Form.Item>
+                )}
+              ></Controller>
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <PhDatePicker name="dateOfBirth" label="Date Of Birth" />
@@ -222,16 +288,18 @@ const CreateStudent = () => {
           <Divider>Academic Info</Divider>
           <Row gutter={10}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PhInput
+              <PhSelect
+                disabled={sIsLoading}
                 name="admissionSemester"
-                type="text"
+                options={semesterSelectOptions}
                 label="Admission Semester"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PhInput
+              <PhSelect
+                disabled={dIsLoading}
                 name="academicDepartment"
-                type="text"
+                options={departmentSelectOptions}
                 label="Academic Department"
               />
             </Col>
