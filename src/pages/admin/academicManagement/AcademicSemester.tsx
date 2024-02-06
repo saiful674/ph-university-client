@@ -61,13 +61,15 @@ const columns: TableColumnsType<DataType> = [
 const AcademicSemester = () => {
   const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
 
-  const { data: semesterData, isLoading } =
-    useGetAllAcademicSemesterQuery(params);
+  const {
+    data: semesterData,
+    isLoading,
+    isFetching,
+  } = useGetAllAcademicSemesterQuery(params);
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
-
   const onChange: TableProps<DataType>["onChange"] = (
     _pagination,
     filters,
@@ -90,7 +92,7 @@ const AcademicSemester = () => {
   };
   console.log(semesterData);
 
-  const semesterTableData = semesterData.data.map(
+  const semesterTableData = semesterData?.data.map(
     ({ _id, name, year, startMonth, endMonth }: TAcademicSemester) => {
       return { key: _id, name, year, startMonth, endMonth };
     }
@@ -98,6 +100,7 @@ const AcademicSemester = () => {
 
   return (
     <Table
+      loading={isFetching}
       columns={columns}
       dataSource={semesterTableData}
       onChange={onChange}
