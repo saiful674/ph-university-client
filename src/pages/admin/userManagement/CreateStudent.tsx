@@ -18,42 +18,6 @@ import {
 } from "../../../types";
 import { TStudent } from "../../../types/userManagement.types";
 
-const studentDummyData = {
-  password: "Pass@1234",
-  student: {
-    name: {
-      firstName: "John",
-      middleName: "",
-      lastName: "Doe",
-    },
-    email: "student1@gmail.com",
-    contactNo: "1234567890",
-    emergencyContactNo: "9876543210",
-    gender: "male",
-    bloodGroup: "A+",
-    dateOfBirth: "1990-01-01",
-    presentAddress: "123 Main Street, City",
-    permanentAddress: "456 Park Avenue, Town",
-    guardian: {
-      fatherName: "John Doe Sr.",
-      fatherOccupation: "Engineer",
-      fatherContactNo: "1234567890",
-      motherName: "Jane Doe",
-      motherOccupation: "Doctor",
-      motherContactNo: "9876543210",
-    },
-    localGuardian: {
-      name: "Local Guardian",
-      occupation: "Business",
-      relation: "Uncle",
-      contactNo: "9998887777",
-      address: "789 Street, Nearby City",
-    },
-    admissionSemester: "65be36537738dd806382dcb8",
-    academicDepartment: "65be35cc7738dd806382dcb3",
-  },
-};
-
 const studentDefaultData = {
   name: {
     firstName: "Md.",
@@ -161,7 +125,7 @@ const CreateStudent = () => {
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <Controller
                 name="image"
-                render={({ field: { onChange, value, ...field } }) => (
+                render={({ field: { onChange, ...field } }) => (
                   <Form.Item label="Picture">
                     <Input
                       type="file"

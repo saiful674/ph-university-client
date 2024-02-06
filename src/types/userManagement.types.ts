@@ -12,6 +12,9 @@ export interface TStudent {
   localGuardian: TLocalGuardian;
   admissionSemester: string;
   academicDepartment: string;
+  _id: string;
+  id: string;
+  fullName: string;
 }
 
 export interface TGuardian {

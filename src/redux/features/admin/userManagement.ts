@@ -1,7 +1,25 @@
+import { TQueryParam } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const userManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    getAllStudents: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        console.log(args);
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+        return {
+          url: "/students",
+          method: "GET",
+          params: params,
+        };
+      },
+    }),
     addStudent: builder.mutation({
       query: (data) => ({
         url: "/users/create-student",
@@ -12,4 +30,5 @@ const userManagementApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useAddStudentMutation } = userManagementApi;
+export const { useAddStudentMutation, useGetAllStudentsQuery } =
+  userManagementApi;
