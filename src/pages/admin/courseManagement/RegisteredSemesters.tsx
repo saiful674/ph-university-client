@@ -2,6 +2,7 @@ import {
   Button,
   Dropdown,
   MenuProps,
+  Space,
   Table,
   TableColumnsType,
   Tag,
@@ -123,9 +124,11 @@ const RegisteredSemesters = () => {
       title: "Action",
       dataIndex: "",
       render: (item) => (
-        <Dropdown menu={menuProps} trigger={["click"]}>
-          <Button onClick={() => setSemesterId(item.key)}>Update</Button>
-        </Dropdown>
+        <Space>
+          <Dropdown menu={menuProps} trigger={["click"]}>
+            <Button onClick={() => setSemesterId(item.key)}>Update</Button>
+          </Dropdown>
+        </Space>
       ),
     },
   ];

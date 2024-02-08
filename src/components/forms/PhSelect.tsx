@@ -5,15 +5,21 @@ type TPhSlectProps = {
   label: string;
   options: { value: string; label: string; disabled?: boolean }[];
   disabled?: boolean;
+  mode?: "multiple" | undefined;
 };
 
-const PhSelect = ({ options, name, label, disabled }: TPhSlectProps) => {
+const PhSelect = ({ options, name, label, disabled, mode }: TPhSlectProps) => {
   return (
     <Controller
       name={name}
       render={({ field, fieldState }) => (
         <Form.Item label={label}>
-          <Select {...field} options={options} disabled={disabled}></Select>
+          <Select
+            {...field}
+            mode={mode}
+            options={options}
+            disabled={disabled}
+          ></Select>
           <span style={{ color: "red" }}>{fieldState?.error?.message}</span>
         </Form.Item>
       )}
