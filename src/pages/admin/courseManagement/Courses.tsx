@@ -1,4 +1,5 @@
-import { Button, Table, TableColumnsType } from "antd";
+import { Table, TableColumnsType } from "antd";
+import AssignFacultyModal from "../../../components/modal/AssignFacultyModal";
 import { useGetAllCoursesQuery } from "../../../redux/features/admin/courseManagement";
 import { TCourse } from "../../../types";
 
@@ -24,9 +25,7 @@ const columns: TableColumnsType<
   {
     title: "Action",
     dataIndex: "",
-    render: (item) => (
-      <Button onClick={() => console.log(item.key)}>Assign Faculty</Button>
-    ),
+    render: (item) => <AssignFacultyModal courseId={item.key} />,
   },
 ];
 
