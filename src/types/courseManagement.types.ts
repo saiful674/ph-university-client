@@ -12,3 +12,20 @@ export interface TRegisteredSemester {
   createdAt: Date;
   updatedAt: Date;
 }
+
+type preRequisiteCourses = {
+  course: TCourse;
+  isDeleted: boolean;
+};
+export type TCourse = {
+  _id: string;
+  title: string;
+  prefix: string;
+  code: number;
+  credits: number;
+  isDeleted: boolean;
+  preRequisiteCourses: preRequisiteCourses[];
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+};
