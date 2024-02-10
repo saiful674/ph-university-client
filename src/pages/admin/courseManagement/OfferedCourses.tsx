@@ -89,7 +89,6 @@ const OfferedCourses = () => {
       loading={isFetching}
       columns={columns}
       dataSource={offeredCoursesTableData}
-      //   onChange={onChange}
     />
   );
 };

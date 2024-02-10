@@ -1,13 +1,26 @@
 import { Layout, Menu } from "antd";
+import { Navigate } from "react-router-dom";
+import { TUser } from "../../redux/features/auth/authSlice";
 import { useAppSelector } from "../../redux/hooks";
 import { adminPaths } from "../../routes/admin.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
 import { studentPaths } from "../../routes/student.routes";
 import { sideBarItemsGenerator } from "../../utils/sideBarItemsGenerator";
+import { varifyToken } from "../../utils/varifyToken";
 const { Sider } = Layout;
 
 const SideBar = () => {
-  const user = useAppSelector((state) => state.auth.user);
+  const { token } = useAppSelector((state) => state.auth);
+  let user;
+
+  if (!token) {
+    return <Navigate to={"/login"} replace={true}></Navigate>;
+  }
+
+  if (token) {
+    user = varifyToken(token) as TUser;
+  }
+
   const userRole = {
     ADMIN: "admin",
     FACULTY: "faculty",

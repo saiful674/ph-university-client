@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Col, Flex } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PhForm from "../components/forms/PhForm";
@@ -37,18 +37,20 @@ const Login = () => {
   };
 
   return (
-    <PhForm onSubmit={onSubmit}>
-      <PhInput name={"userId"} type={"text"} label={"User Id"} />
-
-      <PhInput name={"password"} type={"text"} label={"Password"} />
-
-      <Button
-        htmlType="submit"
-        style={{ marginTop: "10px", fontWeight: "500" }}
-      >
-        Submit
-      </Button>
-    </PhForm>
+    <Flex justify="center">
+      <Col span={6}>
+        <PhForm onSubmit={onSubmit}>
+          <PhInput name={"userId"} type={"text"} label={"User Id"} />
+          <PhInput name={"password"} type={"text"} label={"Password"} />
+          <Button
+            htmlType="submit"
+            style={{ marginTop: "10px", fontWeight: "500" }}
+          >
+            Submit
+          </Button>
+        </PhForm>
+      </Col>
+    </Flex>
   );
 };
 
