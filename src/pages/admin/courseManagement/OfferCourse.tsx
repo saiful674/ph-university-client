@@ -1,4 +1,5 @@
 import { Button, Col, Flex } from "antd";
+import moment from "moment";
 import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
@@ -6,6 +7,7 @@ import PhForm from "../../../components/forms/PhForm";
 import PhInput from "../../../components/forms/PhInput";
 import PhSelect from "../../../components/forms/PhSelect";
 import PhSelectWithWatch from "../../../components/forms/PhSelectWithWatch";
+import PhTimePicker from "../../../components/forms/PhTimePicker";
 import { daysOptions } from "../../../constant";
 import {
   useGetAllAcademicDepartmentQuery,
@@ -17,6 +19,7 @@ import {
   useGetAllRegisteredSemesterQuery,
   useGetFacultiesWithCourseQuery,
 } from "../../../redux/features/admin/courseManagement";
+import { TResponse } from "../../../types";
 
 const OfferCourse = () => {
   const [courseId, setCourseId] = useState("");
@@ -29,10 +32,17 @@ const OfferCourse = () => {
     useGetAllAcademicDepartmentQuery(undefined);
   const { data: academicFacultyData, isFetching: afIsFetching } =
     useGetAllAcademicFacultyQuery(undefined);
-  const { data: FacultyWithCourseData, isFetching: fcIsFetching } =
-    useGetFacultiesWithCourseQuery(courseId, { skip: !courseId });
+  const { data: FacultyWithCourseData } = useGetFacultiesWithCourseQuery(
+    courseId,
+    { skip: !courseId }
+  );
 
-  console.log(courseId, FacultyWithCourseData);
+  const facultyOptions = FacultyWithCourseData?.data?.faculties.map(
+    (item: any) => ({
+      value: item._id,
+      label: `${item?.name?.firstName} ${item?.name?.middleName} ${item?.name?.lastName}`,
+    })
+  );
 
   const registeredSemesterOptions = registeredSemesterData?.data?.map(
     (item: any) => ({
@@ -61,19 +71,23 @@ const OfferCourse = () => {
     const toastId = toast.loading("Please wait");
     const offerCourseData = {
       ...data,
+      startTime: moment(new Date(data.startTime)).format("HH:mm"),
+      endTime: moment(new Date(data.endTime)).format("HH:mm"),
+      maxCapacity: Number(data.maxCapacity),
+      section: Number(data.section),
     };
-    console.log(offerCourseData);
-    // try {
-    //   const res = (await addOfferCourse(courseData)) as TResponse<any>;
-    //   console.log(res);
-    //   if (res.error) {
-    //     toast.error(res.error.data.message, { id: toastId });
-    //   } else {
-    //     toast.success("Course is added successfully", { id: toastId });
-    //   }
-    // } catch (err) {
-    //   toast.error("Something went wrong", { id: toastId });
-    // }
+
+    try {
+      const res = (await addOfferCourse(offerCourseData)) as TResponse<any>;
+      console.log(res);
+      if (res.error) {
+        toast.error(res.error.data.message, { id: toastId });
+      } else {
+        toast.success("Course is successfully offered", { id: toastId });
+      }
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
+    }
   };
   return (
     <Flex justify="center">
@@ -105,10 +119,10 @@ const OfferCourse = () => {
             disabled={cIsFetching}
           />
           <PhSelect
-            options={coursesOptions}
+            options={facultyOptions}
             name="faculty"
             label="Faculty"
-            disabled={cIsFetching}
+            disabled={courseId ? false : true}
           />
           <PhInput name="maxCapacity" label="Max Capacity" type="number" />
           <PhInput name="section" label="Section" type="number" />
@@ -118,7 +132,8 @@ const OfferCourse = () => {
             name="days"
             label="Days"
           />
-
+          <PhTimePicker name="startTime" label="Start Time" />
+          <PhTimePicker name="endTime" label="End Time" />
           <Button htmlType="submit">Submit</Button>
         </PhForm>
       </Col>
