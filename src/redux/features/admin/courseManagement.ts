@@ -76,6 +76,24 @@ const courseManagementApi = baseApi.injectEndpoints({
         method: "Get",
       }),
     }),
+    getAllOfferedCourses: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        console.log(args);
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+        return {
+          url: "/offered-courses",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["offeredCourses"],
+    }),
     addOfferCourse: builder.mutation({
       query: (data) => ({
         url: "/offered-courses/create-offered-course",
@@ -96,4 +114,5 @@ export const {
   useAssignFacultyWithCourseMutation,
   useAddOfferCourseMutation,
   useGetFacultiesWithCourseQuery,
+  useGetAllOfferedCoursesQuery,
 } = courseManagementApi;

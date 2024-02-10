@@ -1,4 +1,4 @@
-import { TAcademicSemester } from ".";
+import { TAcademicDepartment, TAcademicFaculty, TAcademicSemester } from ".";
 
 export interface TRegisteredSemester {
   _id: string;
@@ -28,4 +28,19 @@ export type TCourse = {
   createdAt: Date;
   updatedAt: Date;
   __v: number;
+};
+
+export type TOfferedCourse = {
+  _id: string;
+  semesterRegistration: any;
+  academicSemester: TAcademicSemester;
+  academicFaculty: TAcademicFaculty;
+  academicDepartment: TAcademicDepartment;
+  course: TCourse;
+  faculty: any;
+  maxCapacity: number;
+  section: number;
+  days: string[];
+  startTime: string;
+  endTime: string;
 };
