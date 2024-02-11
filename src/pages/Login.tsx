@@ -15,7 +15,6 @@ const Login = () => {
   const [login] = useLoginMutation();
 
   const onSubmit = async (data: { userId: string; password: string }) => {
-    console.log(data);
     const toastId = toast.loading("loggin in...");
     const userInfo = {
       id: data.userId,
@@ -25,10 +24,16 @@ const Login = () => {
       const res = await login(userInfo).unwrap();
       // decoded access token and get user info
       const user = varifyToken(res.data.accessToken) as TUser;
-      // set user data
+      console.log(res);
+      // force user to chenge password after login default password
+      if (res?.data?.needsPasswordChange) {
+        navigate(`/change-password`);
+      } else {
+        // set user data
+        navigate(`/${user.role}/dashboard`);
+      }
       dispatch(setUser({ user, token: res.data.accessToken }));
       toast.success("Login successful", { id: toastId, duration: 2000 });
-      navigate(`/${user.role}/dashboard`);
     } catch (err) {
       if (err) {
         toast.error("Something went wrong!", { id: toastId, duration: 2000 });

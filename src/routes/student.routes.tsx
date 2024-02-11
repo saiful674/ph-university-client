@@ -1,5 +1,6 @@
+import AvailableCourses from "../pages/student/AvailableCourses";
+import SemesterRegistration from "../pages/student/SemesterRegistration";
 import StudentDashboard from "../pages/student/StudentDashboard";
-import SemesterRegistration from "../pages/student/semesterRegistration";
 
 export const studentPaths = [
   {
@@ -11,5 +12,10 @@ export const studentPaths = [
     name: "Semester Registration",
     path: "semester-registration",
     element: <SemesterRegistration />,
+  },
+  {
+    name: "Available Courses",
+    path: "available-courses",
+    element: <AvailableCourses />,
   },
 ];

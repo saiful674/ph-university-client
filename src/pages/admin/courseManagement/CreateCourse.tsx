@@ -21,18 +21,20 @@ const CreateCourse = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Please wait");
-    const courseData = {
-      ...data,
-      code: Number(data.code),
-      credits: Number(data.credits),
-      preRequisiteCourses: data.preRequisiteCourses.map((item: string) => ({
-        course: item,
 
-        isDeleted: false,
-      })),
-    };
-    console.log(courseData);
     try {
+      const courseData = {
+        ...data,
+        code: Number(data.code),
+        credits: Number(data.credits),
+        preRequisiteCourses: data?.preRequisiteCourses
+          ? data?.preRequisiteCourses?.map((item: string) => ({
+              course: item,
+
+              isDeleted: false,
+            }))
+          : [],
+      };
       const res = (await addCourse(courseData)) as TResponse<any>;
       console.log(res);
       if (res.error) {
