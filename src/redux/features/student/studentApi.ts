@@ -19,8 +19,18 @@ const userManagementApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ["enrollCourse"],
+    }),
+    enrollCourse: builder.mutation({
+      query: (data) => ({
+        url: "/enrolled-courses/create-enrolled-course",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["enrollCourse"],
     }),
   }),
 });
 
-export const { useGetMyOfferedCoursesQuery } = userManagementApi;
+export const { useGetMyOfferedCoursesQuery, useEnrollCourseMutation } =
+  userManagementApi;
