@@ -11,9 +11,11 @@ type TAcc = {
 };
 
 const AvailableCourses = () => {
-  const { data } = useGetMyOfferedCoursesQuery(undefined);
+  const { data, isLoading } = useGetMyOfferedCoursesQuery(undefined);
   const [enrollCourse] = useEnrollCourseMutation();
-
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   const availableCourses = data?.data?.reduce(
     (acc: TAcc, item: TOfferedCourse) => {
       const key = item.course.title;
@@ -77,7 +79,7 @@ const AvailableCourses = () => {
                   <Col span={4}>Sections : {item.section}</Col>
                   <Col span={4}>Start Time : {item.startTime}</Col>
                   <Col span={4}>End Time : {item.endTime}</Col>
-                  <Col span={4}>
+                  <Col span={5}>
                     Days :
                     {item.days.map((item: string, index: number) => (
                       <Tag color="blue" key={index}>
@@ -86,7 +88,7 @@ const AvailableCourses = () => {
                     ))}
                   </Col>
                   <Col
-                    span={4}
+                    span={3}
                     style={{ display: "flex", justifyContent: "end" }}
                   >
                     <Button
