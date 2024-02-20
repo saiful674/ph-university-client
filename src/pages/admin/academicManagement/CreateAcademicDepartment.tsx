@@ -15,6 +15,7 @@ import {
   TAcademicFaculty,
   TResponse,
 } from "../../../types";
+import Loading from "../../Loading";
 
 const CreateAcademicDepartment = () => {
   const [addAcademicDepartment] = useAddAcademicDepartmentMutation();
@@ -22,7 +23,7 @@ const CreateAcademicDepartment = () => {
     useGetAllAcademicFacultyQuery(undefined);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
   const facultySelectOptions = facultyData.data.map(
     (item: TAcademicFaculty) => ({

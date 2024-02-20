@@ -2,6 +2,7 @@ import { Table, TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { useGetAllAcademicDepartmentQuery } from "../../../redux/features/admin/academicManagement";
 import { TAcademicDepartment, TQueryParam } from "../../../types";
+import Loading from "../../Loading";
 
 interface DataType {
   key: React.Key;
@@ -46,7 +47,7 @@ const AcademicDepartment = () => {
   } = useGetAllAcademicDepartmentQuery(params);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
   const onChange: TableProps<DataType>["onChange"] = (
     _pagination,

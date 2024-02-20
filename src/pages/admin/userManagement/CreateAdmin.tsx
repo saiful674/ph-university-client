@@ -6,58 +6,31 @@ import PhForm from "../../../components/forms/PhForm";
 import PhInput from "../../../components/forms/PhInput";
 import PhSelect from "../../../components/forms/PhSelect";
 import { bloodGroupOptons, genderOptons } from "../../../constant";
-import {
-  useGetAllAcademicDepartmentQuery,
-  useGetAllAcademicFacultyQuery,
-} from "../../../redux/features/admin/academicManagement";
-import { useAddFacultyMutation } from "../../../redux/features/admin/userManagement";
-import {
-  TAcademicDepartment,
-  TAcademicFaculty,
-  TResponse,
-} from "../../../types";
+import { useAddAdminMutation } from "../../../redux/features/admin/userManagement";
+import { TResponse } from "../../../types";
 import { TFaculty } from "../../../types/userManagement.types";
 
-const CreateFaculty = () => {
-  const [addFaculty] = useAddFacultyMutation();
-  const { data: departmentData, isLoading: dIsLoading } =
-    useGetAllAcademicDepartmentQuery(undefined);
-
-  const { data: facultyData, isLoading: fIsLoading } =
-    useGetAllAcademicFacultyQuery(undefined);
-
-  const facultySelectOptions = facultyData?.data.map(
-    (item: TAcademicFaculty) => ({
-      value: item._id,
-      label: item.name,
-    })
-  );
-
-  const departmentSelectOptions = departmentData?.data.map(
-    (item: TAcademicDepartment) => ({
-      value: item._id,
-      label: item.name,
-    })
-  );
+const CreateAdmin = () => {
+  const [addAdmin] = useAddAdminMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Please wait...");
-    const facultyData = {
+    const adminData = {
       password: "Pass@1234",
-      faculty: { ...data },
+      admin: { ...data },
     };
     console.log(data.image);
     const formData = new FormData();
-    formData.append("data", JSON.stringify(facultyData));
+    formData.append("data", JSON.stringify(adminData));
     formData.append("file", data.image);
 
     try {
-      const res = (await addFaculty(formData)) as TResponse<TFaculty>;
+      const res = (await addAdmin(formData)) as TResponse<TFaculty>;
       console.log(res);
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {
-        toast.success("Faculty created", { id: toastId });
+        toast.success("Admin created", { id: toastId });
       }
     } catch (err) {
       toast.error("Something went wrong", { id: toastId });
@@ -140,25 +113,6 @@ const CreateFaculty = () => {
             </Col>
           </Row>
 
-          <Divider>Academic Info</Divider>
-          <Row gutter={10}>
-            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PhSelect
-                disabled={fIsLoading}
-                name="academicFaculty"
-                options={facultySelectOptions}
-                label="Academic Faculty"
-              />
-            </Col>
-            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PhSelect
-                disabled={dIsLoading}
-                name="academicDepartment"
-                options={departmentSelectOptions}
-                label="Academic Department"
-              />
-            </Col>
-          </Row>
           <Button htmlType="submit">Submit</Button>
         </PhForm>
       </Col>
@@ -166,4 +120,4 @@ const CreateFaculty = () => {
   );
 };
 
-export default CreateFaculty;
+export default CreateAdmin;

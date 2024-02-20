@@ -1,6 +1,7 @@
 import { Button, Table, TableColumnsType } from "antd";
 import { useGetAllAcademicFacultyQuery } from "../../../redux/features/admin/academicManagement";
 import { TAcademicFaculty } from "../../../types";
+import Loading from "../../Loading";
 
 interface DataType {
   key: React.Key;
@@ -30,7 +31,7 @@ const AcademicFaculty = () => {
   } = useGetAllAcademicFacultyQuery(undefined);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   const semesterTableData = facultyData?.data.map(

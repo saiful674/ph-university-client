@@ -43,6 +43,41 @@ const userManagementApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ["faculties"],
+    }),
+    addFaculty: builder.mutation({
+      query: (data) => ({
+        url: "/users/create-faculty",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["faculties"],
+    }),
+    getAllAdmin: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        console.log(args);
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+        return {
+          url: "/admins",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["admins"],
+    }),
+    addAdmin: builder.mutation({
+      query: (data) => ({
+        url: "/users/create-admin",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["admins"],
     }),
   }),
 });
@@ -51,4 +86,7 @@ export const {
   useAddStudentMutation,
   useGetAllStudentsQuery,
   useGetAllFacultyQuery,
+  useAddFacultyMutation,
+  useAddAdminMutation,
+  useGetAllAdminQuery,
 } = userManagementApi;

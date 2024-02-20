@@ -29,7 +29,7 @@ const PhForm = ({
   if (resolver) {
     formConfig["resolver"] = resolver;
   }
-  console.log(defaultValues);
+
   const methods = useForm(formConfig);
   const submit: SubmitHandler<FieldValues> = (data) => {
     methods.reset();

@@ -11,8 +11,11 @@ import OfferCourse from "../pages/admin/courseManagement/OfferCourse";
 import OfferedCourses from "../pages/admin/courseManagement/OfferedCourses";
 import RegisteredSemesters from "../pages/admin/courseManagement/RegisteredSemesters";
 import SemesterRegistration from "../pages/admin/courseManagement/SemesterRegistration";
+import AminData from "../pages/admin/userManagement/AdminData";
+import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
 import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
 import CreateStudent from "../pages/admin/userManagement/CreateStudent";
+import FacultyData from "../pages/admin/userManagement/FacultyData";
 import StudentData from "../pages/admin/userManagement/StudentData";
 
 export const adminPaths = [
@@ -73,6 +76,21 @@ export const adminPaths = [
         name: "Create Faculty",
         path: "create-faculty",
         element: <CreateFaculty />,
+      },
+      {
+        name: "Faculties",
+        path: "faculty-data",
+        element: <FacultyData />,
+      },
+      {
+        name: "Create Admin",
+        path: "create-admin",
+        element: <CreateAdmin />,
+      },
+      {
+        name: "Admins",
+        path: "admin-data",
+        element: <AminData />,
       },
     ],
   },
