@@ -1,11 +1,12 @@
 /* eslint-disable no-unsafe-optional-chaining */
-import { Avatar, Card, Col, Row } from "antd";
+import { Avatar, Card, Col, Flex, Row } from "antd";
 import Meta from "antd/es/card/Meta";
+import UpdateStudentInfoModal from "../../components/modal/UpdateStudentInfoModal";
 import { useGetMyInfoQuery } from "../../redux/features/student/studentApi";
 import Loading from "../Loading";
 
 const StudentDashboard = () => {
-  const { data: myInfo, isLoading } = useGetMyInfoQuery(undefined);
+  const { data: studentdata, isLoading } = useGetMyInfoQuery(undefined);
 
   if (isLoading) {
     return <Loading />;
@@ -26,7 +27,7 @@ const StudentDashboard = () => {
     admissionSemester,
     academicFaculty,
     academicDepartment,
-  } = myInfo?.data;
+  } = studentdata?.data;
   const {
     fatherName,
     motherName,
@@ -43,6 +44,9 @@ const StudentDashboard = () => {
           avatar={<Avatar src={profileImg} size={60} />}
           title={`${name.firstName} ${name.middleName} ${name.lastName}`}
         />
+        <Flex justify="end">
+          <UpdateStudentInfoModal studentData={studentdata?.data} />
+        </Flex>
         <Row>
           <Col
             md={{ span: 12 }}
