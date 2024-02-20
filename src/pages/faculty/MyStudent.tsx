@@ -88,7 +88,7 @@ const AddMarksModal = ({
 
     console.log(studentMark);
     const res = await addMark(studentMark);
-
+    setIsModalOpen(false);
     console.log(res);
   };
 
@@ -98,7 +98,7 @@ const AddMarksModal = ({
       <Modal
         title="Basic Modal"
         open={isModalOpen}
-        onCancel={() => setIsModalOpen(true)}
+        onCancel={() => setIsModalOpen(false)}
         footer={null}
       >
         <PhForm onSubmit={handleSubmit}>

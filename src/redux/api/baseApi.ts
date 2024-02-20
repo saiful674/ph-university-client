@@ -64,6 +64,7 @@ export const baseApi = createApi({
     "offeredCourses",
     "enrollCourse",
     "facultyCoursees",
+    "myInfo",
   ],
   endpoints: () => ({}),
 });

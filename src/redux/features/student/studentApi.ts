@@ -47,6 +47,15 @@ const userManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["enrollCourse"],
     }),
+    getMyInfo: builder.query({
+      query: () => {
+        return {
+          url: "/users/me",
+          method: "GET",
+        };
+      },
+      providesTags: ["myInfo"],
+    }),
   }),
 });
 
@@ -54,4 +63,5 @@ export const {
   useGetMyOfferedCoursesQuery,
   useEnrollCourseMutation,
   useGetMyEnrolledCoursesQuery,
+  useGetMyInfoQuery,
 } = userManagementApi;
