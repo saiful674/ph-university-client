@@ -8,6 +8,11 @@ const columns: TableColumnsType<any> = [
     dataIndex: "course",
   },
   {
+    title: "Faculty",
+    dataIndex: "faculty",
+    responsive: ["md"],
+  },
+  {
     title: "Days",
     dataIndex: "days",
     render: (days) => (
@@ -19,6 +24,7 @@ const columns: TableColumnsType<any> = [
         ))}
       </Space>
     ),
+    responsive: ["md"],
   },
   {
     title: "Start Time",
@@ -42,12 +48,13 @@ const Schedule = () => {
   console.log(enrolledCoursesData);
 
   const enrolledCoursesTableData = enrolledCoursesData?.data?.map(
-    ({ offeredCourse, course, _id }: TEnrolledCourse) => {
+    ({ offeredCourse, course, _id, faculty }: TEnrolledCourse) => {
       return {
         key: _id,
         course: course.title,
         startTime: offeredCourse.startTime,
         endTime: offeredCourse.endTime,
+        faculty: `${faculty.name.firstName} ${faculty.name.middleName} ${faculty.name.lastName}`,
         days: offeredCourse.days,
       };
     }

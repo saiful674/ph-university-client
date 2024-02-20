@@ -2,14 +2,14 @@
 import { Avatar, Card, Col, Row } from "antd";
 import Meta from "antd/es/card/Meta";
 import { useGetMyInfoQuery } from "../../redux/features/student/studentApi";
+import Loading from "../Loading";
 
 const StudentDashboard = () => {
   const { data: myInfo, isLoading } = useGetMyInfoQuery(undefined);
 
   if (isLoading) {
-    return <p>Loadindg....</p>;
+    return <Loading />;
   }
-  console.log(myInfo.data);
 
   const {
     name,

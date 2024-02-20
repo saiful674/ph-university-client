@@ -5,6 +5,7 @@ import {
   useGetMyOfferedCoursesQuery,
 } from "../../redux/features/student/studentApi";
 import { TOfferedCourse, TResponse } from "../../types";
+import Loading from "../Loading";
 
 type TAcc = {
   [index: string]: any;
@@ -14,7 +15,7 @@ const AvailableCourses = () => {
   const { data, isLoading } = useGetMyOfferedCoursesQuery(undefined);
   const [enrollCourse] = useEnrollCourseMutation();
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
   const availableCourses = data?.data?.reduce(
     (acc: TAcc, item: TOfferedCourse) => {
