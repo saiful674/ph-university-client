@@ -1,9 +1,9 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import { Avatar, Card, Col, Row } from "antd";
 import Meta from "antd/es/card/Meta";
+import avater from "../../assets/images/avater.png";
 import { useGetMyInfoQuery } from "../../redux/features/student/studentApi";
 import Loading from "../Loading";
-
 const AdminDashboard = () => {
   const { data: adminData, isLoading } = useGetMyInfoQuery(undefined);
 
@@ -31,7 +31,7 @@ const AdminDashboard = () => {
       <Card bordered={false} loading={isLoading}>
         <Meta
           style={{ fontSize: "20px" }}
-          avatar={<Avatar src={profileImg} size={60} />}
+          avatar={<Avatar src={profileImg ? profileImg : avater} size={60} />}
           title={`${name.firstName} ${name.middleName} ${name.lastName}`}
         />
 

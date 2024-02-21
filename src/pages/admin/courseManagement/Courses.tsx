@@ -2,6 +2,7 @@ import { Table, TableColumnsType } from "antd";
 import AssignFacultyModal from "../../../components/modal/AssignFacultyModal";
 import { useGetAllCoursesQuery } from "../../../redux/features/admin/courseManagement";
 import { TCourse } from "../../../types";
+import Loading from "../../Loading";
 
 const columns: TableColumnsType<
   Pick<TCourse, "title" | "code" | "credits" | "prefix">
@@ -32,11 +33,13 @@ const columns: TableColumnsType<
 const Courses = () => {
   const {
     data: courseData,
-
+    isLoading,
     isFetching,
   } = useGetAllCoursesQuery(undefined);
 
-  console.log(courseData);
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const semesterTableData = courseData?.data?.map(
     ({ _id, title, prefix, code, credits }: TCourse) => {

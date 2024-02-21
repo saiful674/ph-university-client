@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagement";
 import { TQueryParam } from "../../../types";
 import { TStudent } from "../../../types/userManagement.types";
+import Loading from "../../Loading";
 
 type DataType = Pick<TStudent, "_id" | "fullName" | "id">;
 
@@ -41,13 +42,17 @@ const StudentData = () => {
   const [page, setPage] = useState(1);
   const {
     data: studentData,
-
+    isLoading,
     isFetching,
   } = useGetAllStudentsQuery([
     { name: "page", value: page },
     { name: "sort", value: "id" },
     ...params,
   ]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const onChange: TableProps<DataType>["onChange"] = (
     _pagination,

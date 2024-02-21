@@ -1,4 +1,4 @@
-import { Button, Col, Flex } from "antd";
+import { Button } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import PhForm from "../../components/forms/PhForm";
 import PhSelect from "../../components/forms/PhSelect";
@@ -27,25 +27,21 @@ const MyClasses = () => {
     navigate(`/faculty/courses/${data.semesterRegistration}/${data.course}`);
   };
   return (
-    <Flex justify="center" align="center">
-      <Col span={6}>
-        <PhForm onSubmit={onSubmit}>
-          <PhSelect
-            options={semesterOptions}
-            name="semesterRegistration"
-            label="Semester"
-            disabled={isFetching}
-          />
-          <PhSelect
-            options={courseOptions}
-            name="course"
-            label="Course"
-            disabled={isFetching}
-          />
-          <Button htmlType="submit">Submit</Button>
-        </PhForm>
-      </Col>
-    </Flex>
+    <PhForm onSubmit={onSubmit}>
+      <PhSelect
+        options={semesterOptions}
+        name="semesterRegistration"
+        label="Semester"
+        disabled={isFetching}
+      />
+      <PhSelect
+        options={courseOptions}
+        name="course"
+        label="Course"
+        disabled={isFetching}
+      />
+      <Button htmlType="submit">Submit</Button>
+    </PhForm>
   );
 };
 

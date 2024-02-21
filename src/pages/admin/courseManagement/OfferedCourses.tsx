@@ -1,13 +1,18 @@
 import { Table, TableColumnsType, Tag } from "antd";
 import { useGetAllOfferedCoursesQuery } from "../../../redux/features/admin/courseManagement";
 import { TOfferedCourse } from "../../../types";
+import Loading from "../../Loading";
 
 const OfferedCourses = () => {
   const {
     data: offeredCoursesData,
-
+    isLoading,
     isFetching,
   } = useGetAllOfferedCoursesQuery(undefined);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const offeredCoursesTableData = offeredCoursesData?.data?.map(
     ({

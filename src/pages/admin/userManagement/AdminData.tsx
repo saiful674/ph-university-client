@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useGetAllAdminQuery } from "../../../redux/features/admin/userManagement";
 import { TQueryParam } from "../../../types";
 import { TAdmin } from "../../../types/userManagement.types";
+import Loading from "../../Loading";
 
 type DataType = Pick<TAdmin, "_id" | "fullName" | "designation">;
 
@@ -41,13 +42,17 @@ const AminData = () => {
   const [page, setPage] = useState(1);
   const {
     data: adminData,
-
+    isLoading,
     isFetching,
   } = useGetAllAdminQuery([
     { name: "page", value: page },
     { name: "sort", value: "id" },
     ...params,
   ]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const onChange: TableProps<DataType>["onChange"] = (
     _pagination,

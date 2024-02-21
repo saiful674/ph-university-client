@@ -14,6 +14,7 @@ import {
   useUpdateSemesterRegistrationStatusMutation,
 } from "../../../redux/features/admin/courseManagement";
 import { TRegisteredSemester, TResponse } from "../../../types";
+import Loading from "../../Loading";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const items: MenuProps["items"] = [
@@ -36,9 +37,13 @@ const RegisteredSemesters = () => {
     useUpdateSemesterRegistrationStatusMutation();
   const {
     data: registeredSemesterData,
-
+    isLoading,
     isFetching,
   } = useGetAllRegisteredSemesterQuery(undefined);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const semesterTableData = registeredSemesterData?.data?.map(
     ({

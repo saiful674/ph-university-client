@@ -8,6 +8,7 @@ const { Header, Content } = Layout;
 
 const MainLayout = () => {
   const dispatch = useAppDispatch();
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <SideBar />

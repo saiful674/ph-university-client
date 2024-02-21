@@ -8,6 +8,7 @@ const authAPi = baseApi.injectEndpoints({
         method: "POST",
         body: userInfo,
       }),
+      invalidatesTags: ["myInfo"],
     }),
     changePassword: builder.mutation({
       query: (data) => ({
