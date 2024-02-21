@@ -25,7 +25,6 @@ const AdminDashboard = () => {
     designation,
   } = adminData?.data;
 
-  console.log(adminData);
   return (
     <div>
       <Card bordered={false} loading={isLoading}>

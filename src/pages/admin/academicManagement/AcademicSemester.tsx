@@ -91,7 +91,6 @@ const AcademicSemester = () => {
       setParams(queryParams);
     }
   };
-  console.log(semesterData);
 
   const semesterTableData = semesterData?.data.map(
     ({ _id, name, year, startMonth, endMonth }: TAcademicSemester) => {

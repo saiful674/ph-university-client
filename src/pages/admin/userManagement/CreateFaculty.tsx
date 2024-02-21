@@ -46,14 +46,14 @@ const CreateFaculty = () => {
       password: "Pass@1234",
       faculty: { ...data },
     };
-    console.log(data.image);
+
     const formData = new FormData();
     formData.append("data", JSON.stringify(facultyData));
     formData.append("file", data.image);
 
     try {
       const res = (await addFaculty(formData)) as TResponse<TFaculty>;
-      console.log(res);
+
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {

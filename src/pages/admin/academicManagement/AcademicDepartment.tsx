@@ -80,8 +80,6 @@ const AcademicDepartment = () => {
     }
   );
 
-  console.log(departmentTableData);
-
   return (
     <Table
       loading={isFetching}

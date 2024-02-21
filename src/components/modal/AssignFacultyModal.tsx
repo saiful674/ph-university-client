@@ -29,7 +29,7 @@ const AssignFacultyModal = ({ courseId }: { courseId: string }) => {
       const res = (await assignFacultyWithCourse(
         updateData
       )) as TResponse<TCourse>;
-      console.log(res);
+
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {

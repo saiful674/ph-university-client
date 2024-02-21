@@ -38,12 +38,12 @@ const CreateAcademicDepartment = () => {
       academicFaculty: data.academicFaculty,
       name: data.name,
     };
-    console.log(semesterData);
+
     try {
       const res = (await addAcademicDepartment(
         semesterData
       )) as TResponse<TAcademicDepartment>;
-      console.log(res);
+
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {

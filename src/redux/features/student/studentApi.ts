@@ -1,13 +1,12 @@
 import { TQueryParam } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
-const userManagementApi = baseApi.injectEndpoints({
+const studentApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getMyOfferedCourses: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
 
-        console.log(args);
         if (args) {
           args.forEach((item: TQueryParam) => {
             params.append(item.name, item.value as string);
@@ -25,7 +24,6 @@ const userManagementApi = baseApi.injectEndpoints({
       query: (args) => {
         const params = new URLSearchParams();
 
-        console.log(args);
         if (args) {
           args.forEach((item: TQueryParam) => {
             params.append(item.name, item.value as string);
@@ -73,4 +71,4 @@ export const {
   useGetMyEnrolledCoursesQuery,
   useUpdateStudentMyInfoMutation,
   useGetMyInfoQuery,
-} = userManagementApi;
+} = studentApi;

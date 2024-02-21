@@ -88,7 +88,6 @@ const OfferedCourses = () => {
       responsive: ["md"],
     },
   ];
-  console.log(offeredCoursesTableData);
   return (
     <Table
       loading={isFetching}

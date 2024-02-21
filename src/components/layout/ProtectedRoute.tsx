@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { varifyToken } from "../../utils/varifyToken";
 type TProtectedRouteProps = {
   children: ReactNode;
-  role: string | undefined;
+  role?: string | undefined;
 };
 const ProtectedRoute = ({ children, role }: TProtectedRouteProps) => {
   const { token } = useAppSelector((state) => state.auth);

@@ -80,14 +80,14 @@ const CreateStudent = () => {
       password: "Pass@1234",
       student: { ...data },
     };
-    console.log(data.image);
+
     const formData = new FormData();
     formData.append("data", JSON.stringify(studentData));
     formData.append("file", data.image);
 
     try {
       const res = (await addStudent(formData)) as TResponse<TStudent>;
-      console.log(res);
+
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {

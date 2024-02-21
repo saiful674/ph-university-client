@@ -24,7 +24,7 @@ const Login = () => {
       const res = await login(userInfo).unwrap();
       // decoded access token and get user info
       const user = varifyToken(res.data.accessToken) as TUser;
-      console.log(res);
+
       // force user to chenge password after login default password
       if (res?.data?.needsPasswordChange) {
         navigate(`/change-password`);

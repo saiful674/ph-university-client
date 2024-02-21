@@ -29,12 +29,12 @@ const SemesterRegistration = () => {
       minCredit: Number(data.minCredit),
       maxCredit: Number(data.maxCredit),
     };
-    console.log(semesterData);
+
     try {
       const res = (await addSemesterRegistration(
         semesterData
       )) as TResponse<any>;
-      console.log(res);
+
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {

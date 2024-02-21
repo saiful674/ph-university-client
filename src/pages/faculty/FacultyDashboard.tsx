@@ -11,7 +11,7 @@ const FacultyDashboard = () => {
   if (isLoading) {
     return <Loading />;
   }
-  console.log(facultyData);
+
   const {
     name,
     profileImg,

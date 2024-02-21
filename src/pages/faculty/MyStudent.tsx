@@ -2,13 +2,14 @@ import { Button, Modal, Table } from "antd";
 import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 import PhForm from "../../components/forms/PhForm";
 import PhInput from "../../components/forms/PhInput";
 import {
   useAddMarkMutation,
   useGetFacultyCoursesQuery,
 } from "../../redux/features/faculty/facultyApi";
-import { TEnrolledCourse } from "../../types";
+import { TEnrolledCourse, TResponse } from "../../types";
 
 const MyStudent = () => {
   const { registerSemesterId, courseId } = useParams();
@@ -17,7 +18,6 @@ const MyStudent = () => {
     { name: "course", value: courseId },
   ]);
 
-  console.log(facultyCoursesData?.data);
   const tableData = facultyCoursesData?.data?.map(
     ({
       _id,
@@ -74,6 +74,7 @@ const AddMarksModal = ({
   const [addMark] = useAddMarkMutation();
 
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Please wait...");
     const studentMark = {
       semesterRegistration: studentInfo.semesterRegistration,
       offeredCourse: studentInfo.offeredCourse,
@@ -86,10 +87,19 @@ const AddMarksModal = ({
       },
     };
 
-    console.log(studentMark);
-    const res = await addMark(studentMark);
+    try {
+      const res = (await addMark(studentMark)) as TResponse<any>;
+
+      if (res.error) {
+        toast.error(res.error.data.message, { id: toastId });
+      } else {
+        toast.success("Course mark is updated successfully", { id: toastId });
+      }
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
+    }
+
     setIsModalOpen(false);
-    console.log(res);
   };
 
   return (

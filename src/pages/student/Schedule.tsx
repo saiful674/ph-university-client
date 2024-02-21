@@ -1,6 +1,7 @@
 import { Button, Space, Table, TableColumnsType, Tag } from "antd";
 import { useGetMyEnrolledCoursesQuery } from "../../redux/features/student/studentApi";
 import { TEnrolledCourse } from "../../types";
+import Loading from "../Loading";
 
 const columns: TableColumnsType<any> = [
   {
@@ -42,10 +43,15 @@ const columns: TableColumnsType<any> = [
 ];
 
 const Schedule = () => {
-  const { data: enrolledCoursesData, isFetching } =
-    useGetMyEnrolledCoursesQuery(undefined);
+  const {
+    data: enrolledCoursesData,
+    isLoading,
+    isFetching,
+  } = useGetMyEnrolledCoursesQuery(undefined);
 
-  console.log(enrolledCoursesData);
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const enrolledCoursesTableData = enrolledCoursesData?.data?.map(
     ({ offeredCourse, course, _id, faculty }: TEnrolledCourse) => {

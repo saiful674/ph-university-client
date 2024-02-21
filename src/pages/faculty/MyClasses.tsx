@@ -11,8 +11,6 @@ const MyClasses = () => {
     useGetFacultyCoursesQuery(undefined);
   const navigate = useNavigate();
 
-  console.log(facultyCoursesData);
-
   const semesterOptions = facultyCoursesData?.data?.map((item: any) => ({
     label: `${item.academicSemester.name} ${item.academicSemester.year}`,
     value: item.semesterRegistration._id,

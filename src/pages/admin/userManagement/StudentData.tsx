@@ -82,7 +82,7 @@ const StudentData = () => {
   );
 
   const metaData = studentData?.meta;
-  console.log(metaData);
+
   return (
     <>
       <Table

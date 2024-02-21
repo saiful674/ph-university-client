@@ -19,14 +19,14 @@ const CreateAdmin = () => {
       password: "Pass@1234",
       admin: { ...data },
     };
-    console.log(data.image);
+
     const formData = new FormData();
     formData.append("data", JSON.stringify(adminData));
     formData.append("file", data.image);
 
     try {
       const res = (await addAdmin(formData)) as TResponse<TFaculty>;
-      console.log(res);
+
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {

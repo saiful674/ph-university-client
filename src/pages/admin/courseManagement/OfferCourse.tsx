@@ -79,7 +79,7 @@ const OfferCourse = () => {
 
     try {
       const res = (await addOfferCourse(offerCourseData)) as TResponse<any>;
-      console.log(res);
+
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {

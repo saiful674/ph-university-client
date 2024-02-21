@@ -82,7 +82,7 @@ const AminData = () => {
   );
 
   const metaData = adminData?.meta;
-  console.log(metaData);
+
   return (
     <>
       <Table

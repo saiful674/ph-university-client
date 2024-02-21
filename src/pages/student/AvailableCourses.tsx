@@ -45,7 +45,7 @@ const AvailableCourses = () => {
       const enrollCourseData = { offeredCourse: id };
 
       const res = (await enrollCourse(enrollCourseData)) as TResponse<any>;
-      console.log(res);
+
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {
