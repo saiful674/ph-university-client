@@ -42,8 +42,8 @@ const Login = () => {
   };
 
   return (
-    <Flex justify="center">
-      <Col span={6}>
+    <Flex justify="center" style={{ marginTop: "20px" }}>
+      <Col span={12}>
         <PhForm onSubmit={onSubmit}>
           <PhInput name={"userId"} type={"text"} label={"User Id"} />
           <PhInput name={"password"} type={"text"} label={"Password"} />

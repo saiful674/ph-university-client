@@ -138,7 +138,6 @@ const RegisteredSemesters = () => {
       loading={isFetching}
       columns={columns}
       dataSource={semesterTableData}
-      //   onChange={onChange}
     />
   );
 };

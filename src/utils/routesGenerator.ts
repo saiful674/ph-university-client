@@ -1,18 +1,18 @@
 import { ReactNode } from "react";
 
-type TItem = {
-  name: string;
-  path?: string;
-  element?: ReactNode;
-  children?: TItem[];
-};
+// type TItem = {
+//   name: string;
+//   path?: string;
+//   element?: ReactNode;
+//   children?: TItem[];
+// };
 
 type TRoute = {
   path: string;
   element: ReactNode;
 };
 
-export const routesGenerator = (items: TItem[]) => {
+export const routesGenerator = (items: any[]) => {
   const routes = items.reduce((acc: TRoute[], item) => {
     if (item.path && item.element) {
       acc.push({
@@ -22,7 +22,7 @@ export const routesGenerator = (items: TItem[]) => {
     }
 
     if (item?.children) {
-      item.children.forEach((child) => {
+      item.children.forEach((child: any) => {
         acc.push({
           path: child.path!,
           element: child.element,

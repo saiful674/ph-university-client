@@ -1,4 +1,4 @@
-import { Button, Col, Flex } from "antd";
+import { Button } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import PhForm from "../../../components/forms/PhForm";
@@ -47,25 +47,20 @@ const CreateCourse = () => {
     }
   };
   return (
-    <Flex justify="center">
-      <Col span={8}>
-        <PhForm onSubmit={onSubmit}>
-          <PhInput name="title" label="Title" type="text" />
-          <PhInput name="prefix" label="Prefix" type="text" />
-          <PhInput name="code" label="Code" type="number" />
-          <PhInput name="credits" label="Credit" type="number" />
-          <PhSelect
-            mode="multiple"
-            options={coursesOptions}
-            name="preRequisiteCourses"
-            label="Pre Requisite Courses"
-            disabled={isFetching}
-          />
-
-          <Button htmlType="submit">Submit</Button>
-        </PhForm>
-      </Col>
-    </Flex>
+    <PhForm onSubmit={onSubmit}>
+      <PhInput name="title" label="Title" type="text" />
+      <PhInput name="prefix" label="Prefix" type="text" />
+      <PhInput name="code" label="Code" type="number" />
+      <PhInput name="credits" label="Credit" type="number" />
+      <PhSelect
+        mode="multiple"
+        options={coursesOptions}
+        name="preRequisiteCourses"
+        label="Pre Requisite Courses"
+        disabled={isFetching}
+      />
+      <Button htmlType="submit">Submit</Button>
+    </PhForm>
   );
 };
 

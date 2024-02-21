@@ -66,7 +66,7 @@ const CreateFaculty = () => {
   return (
     <Row>
       <Col span={24}>
-        <PhForm onSubmit={onSubmit}>
+        <PhForm onSubmit={onSubmit} isWidthFull={true}>
           <Divider>Personal Info</Divider>
           <Row gutter={10}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>

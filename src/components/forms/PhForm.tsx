@@ -14,12 +14,14 @@ type TFormConfig = {
 type TPhFormProps = {
   onSubmit: SubmitHandler<any>;
   children: ReactNode;
+  isWidthFull?: boolean;
 } & TFormConfig;
 
 const PhForm = ({
   onSubmit,
   children,
   resolver,
+  isWidthFull = false,
   defaultValues,
 }: TPhFormProps) => {
   const formConfig: TFormConfig = {};
@@ -37,7 +39,11 @@ const PhForm = ({
   };
   return (
     <Flex align="center" justify="center">
-      <Col span={24}>
+      <Col
+        span={24}
+        md={isWidthFull ? { span: 24 } : { span: 14 }}
+        lg={isWidthFull ? { span: 24 } : { span: 12 }}
+      >
         <FormProvider {...methods}>
           <Form layout="vertical" onFinish={methods.handleSubmit(submit)}>
             {children}

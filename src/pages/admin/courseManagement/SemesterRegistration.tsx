@@ -1,4 +1,4 @@
-import { Button, Col, Flex } from "antd";
+import { Button } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import PhDatePicker from "../../../components/forms/PhDatePicker";
@@ -45,28 +45,24 @@ const SemesterRegistration = () => {
     }
   };
   return (
-    <Flex justify="center">
-      <Col span={8}>
-        <PhForm onSubmit={onSubmit}>
-          <PhSelect
-            options={academicSemesterOptions}
-            name="academicSemester"
-            label="Academic Semester"
-            disabled={isFetching}
-          />
-          <PhSelect
-            options={semesterREgistrationStatusOptions}
-            name="status"
-            label="Status"
-          />
-          <PhDatePicker name="startDate" label="Start Date" />
-          <PhDatePicker name="endDate" label="End Date" />
-          <PhInput name="minCredit" label="Min Credit" type="number" />
-          <PhInput name="maxCredit" label="Max Credit" type="number" />
-          <Button htmlType="submit">Submit</Button>
-        </PhForm>
-      </Col>
-    </Flex>
+    <PhForm onSubmit={onSubmit}>
+      <PhSelect
+        options={academicSemesterOptions}
+        name="academicSemester"
+        label="Academic Semester"
+        disabled={isFetching}
+      />
+      <PhSelect
+        options={semesterREgistrationStatusOptions}
+        name="status"
+        label="Status"
+      />
+      <PhDatePicker name="startDate" label="Start Date" />
+      <PhDatePicker name="endDate" label="End Date" />
+      <PhInput name="minCredit" label="Min Credit" type="number" />
+      <PhInput name="maxCredit" label="Max Credit" type="number" />
+      <Button htmlType="submit">Submit</Button>
+    </PhForm>
   );
 };
 

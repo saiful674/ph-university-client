@@ -100,7 +100,11 @@ const CreateStudent = () => {
   return (
     <Row>
       <Col span={24}>
-        <PhForm onSubmit={onSubmit} defaultValues={studentDefaultData}>
+        <PhForm
+          onSubmit={onSubmit}
+          defaultValues={studentDefaultData}
+          isWidthFull={true}
+        >
           <Divider>Personal Info</Divider>
           <Row gutter={10}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>

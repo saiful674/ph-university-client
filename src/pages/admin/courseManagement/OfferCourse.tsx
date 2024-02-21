@@ -1,4 +1,4 @@
-import { Button, Col, Flex } from "antd";
+import { Button } from "antd";
 import moment from "moment";
 import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
@@ -90,54 +90,50 @@ const OfferCourse = () => {
     }
   };
   return (
-    <Flex justify="center">
-      <Col span={8}>
-        <PhForm onSubmit={onSubmit}>
-          <PhSelect
-            options={registeredSemesterOptions}
-            name="semesterRegistration"
-            label="Semester Registration"
-            disabled={rsIsFetching}
-          />
-          <PhSelect
-            options={academicFacultyOptions}
-            name="academicFaculty"
-            label="Academic Faculty"
-            disabled={afIsFetching}
-          />
-          <PhSelect
-            options={academicDepartmentOptions}
-            name="academicDepartment"
-            label="Academic Department"
-            disabled={adIsFetching}
-          />
-          <PhSelectWithWatch
-            onValueChange={setCourseId}
-            options={coursesOptions}
-            name="course"
-            label="Course"
-            disabled={cIsFetching}
-          />
-          <PhSelect
-            options={facultyOptions}
-            name="faculty"
-            label="Faculty"
-            disabled={courseId ? false : true}
-          />
-          <PhInput name="maxCapacity" label="Max Capacity" type="number" />
-          <PhInput name="section" label="Section" type="number" />
-          <PhSelect
-            mode="multiple"
-            options={daysOptions}
-            name="days"
-            label="Days"
-          />
-          <PhTimePicker name="startTime" label="Start Time" />
-          <PhTimePicker name="endTime" label="End Time" />
-          <Button htmlType="submit">Submit</Button>
-        </PhForm>
-      </Col>
-    </Flex>
+    <PhForm onSubmit={onSubmit}>
+      <PhSelect
+        options={registeredSemesterOptions}
+        name="semesterRegistration"
+        label="Semester Registration"
+        disabled={rsIsFetching}
+      />
+      <PhSelect
+        options={academicFacultyOptions}
+        name="academicFaculty"
+        label="Academic Faculty"
+        disabled={afIsFetching}
+      />
+      <PhSelect
+        options={academicDepartmentOptions}
+        name="academicDepartment"
+        label="Academic Department"
+        disabled={adIsFetching}
+      />
+      <PhSelectWithWatch
+        onValueChange={setCourseId}
+        options={coursesOptions}
+        name="course"
+        label="Course"
+        disabled={cIsFetching}
+      />
+      <PhSelect
+        options={facultyOptions}
+        name="faculty"
+        label="Faculty"
+        disabled={courseId ? false : true}
+      />
+      <PhInput name="maxCapacity" label="Max Capacity" type="number" />
+      <PhInput name="section" label="Section" type="number" />
+      <PhSelect
+        mode="multiple"
+        options={daysOptions}
+        name="days"
+        label="Days"
+      />
+      <PhTimePicker name="startTime" label="Start Time" />
+      <PhTimePicker name="endTime" label="End Time" />
+      <Button htmlType="submit">Submit</Button>
+    </PhForm>
   );
 };
 
