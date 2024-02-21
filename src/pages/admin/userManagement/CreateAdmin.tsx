@@ -67,16 +67,17 @@ const CreateAdmin = () => {
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <Controller
                 name="image"
-                render={({ field: { onChange, ...field } }) => (
+                render={({ field: { onChange, value, ...field } }) => (
                   <Form.Item label="Picture">
                     <Input
                       type="file"
+                      value={value?.fileName}
                       {...field}
                       onChange={(e) => onChange(e.target.files?.[0])}
                     />
                   </Form.Item>
                 )}
-              ></Controller>
+              />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <PhDatePicker name="dateOfBirth" label="Date Of Birth" />

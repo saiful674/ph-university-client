@@ -1,6 +1,7 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import { Avatar, Card, Col, Flex, Row } from "antd";
 import Meta from "antd/es/card/Meta";
+import moment from "moment";
 import avater from "../../assets/images/avater.png";
 import UpdateStudentInfoModal from "../../components/modal/UpdateStudentInfoModal";
 import { useGetMyInfoQuery } from "../../redux/features/student/studentApi";
@@ -27,6 +28,7 @@ const StudentDashboard = () => {
     admissionSemester,
     academicFaculty,
     academicDepartment,
+    localGuardian,
   } = studentdata?.data;
   const {
     fatherName,
@@ -36,6 +38,15 @@ const StudentDashboard = () => {
     motherOccupation,
     fatherContactNo,
   } = guardian;
+
+  const {
+    name: lName,
+    occupation,
+    address,
+    contactNo: lContactNo,
+    relation,
+  } = localGuardian;
+
   return (
     <div>
       <Card bordered={false} loading={isLoading}>
@@ -58,8 +69,8 @@ const StudentDashboard = () => {
               Name: {`${name.firstName} ${name.middleName} ${name.lastName}`}
             </p>
             <p>Gender: {gender}</p>
-            <p>Date of Birth: {dateOfBirth}</p>
             <p>Blood Group: {bloodGroup}</p>
+            <p>Date of Birth: {moment(dateOfBirth).format("Do MMM YYYY")}</p>
           </Col>
 
           <Col
@@ -95,7 +106,18 @@ const StudentDashboard = () => {
             <p>Mother Oc.: {motherOccupation}</p>
             <p>Mother C. No.: {motherContactNo}</p>
           </Col>
-
+          <Col
+            md={{ span: 12 }}
+            lg={{ span: 8 }}
+            style={{ marginTop: "20px", fontSize: "16px" }}
+          >
+            <h4>Local Guardian Info</h4>
+            <p>Name: {lName}</p>
+            <p>Occupation: {occupation}</p>
+            <p>Relation: {relation}</p>
+            <p>Contact No.: {lContactNo}</p>
+            <p>Address: {address}</p>
+          </Col>
           <Col
             md={{ span: 12 }}
             lg={{ span: 8 }}

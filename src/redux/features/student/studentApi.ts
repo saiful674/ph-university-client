@@ -56,6 +56,14 @@ const userManagementApi = baseApi.injectEndpoints({
       },
       providesTags: ["myInfo"],
     }),
+    updateStudentMyInfo: builder.mutation({
+      query: (data) => ({
+        url: "/students/update-my-info",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["myInfo"],
+    }),
   }),
 });
 
@@ -63,5 +71,6 @@ export const {
   useGetMyOfferedCoursesQuery,
   useEnrollCourseMutation,
   useGetMyEnrolledCoursesQuery,
+  useUpdateStudentMyInfoMutation,
   useGetMyInfoQuery,
 } = userManagementApi;

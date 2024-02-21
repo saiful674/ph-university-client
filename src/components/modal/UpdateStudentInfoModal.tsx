@@ -4,7 +4,9 @@ import { useState } from "react";
 import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { bloodGroupOptons, genderOptons } from "../../constant";
-import { TStudent } from "../../types";
+
+import { useUpdateStudentMyInfoMutation } from "../../redux/features/student/studentApi";
+import { TResponse, TStudent } from "../../types";
 import PhDatePicker from "../forms/PhDatePicker";
 import PhForm from "../forms/PhForm";
 import PhInput from "../forms/PhInput";
@@ -12,6 +14,8 @@ import PhSelect from "../forms/PhSelect";
 
 const UpdateStudentInfoModal = ({ studentData }: { studentData: TStudent }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [updateStudentMyInfo] = useUpdateStudentMyInfoMutation();
+
   const {
     dateOfBirth,
     academicDepartment,
@@ -38,20 +42,19 @@ const UpdateStudentInfoModal = ({ studentData }: { studentData: TStudent }) => {
       ...data,
     };
 
-    console.log("update data------------->", updateData);
-    // try {
-    //   const res = (await assignFacultyWithCourse(
-    //     updateData
-    //   )) as TResponse<TCourse>;
-    //   console.log(res);
-    //   if (res.error) {
-    //     toast.error(res.error.data.message, { id: toastId });
-    //   } else {
-    //     toast.success("Faculty is assigned successfully", { id: toastId });
-    //   }
-    // } catch (err) {
-    //   toast.error("Something went wrong", { id: toastId });
-    // }
+    try {
+      const res = (await updateStudentMyInfo(
+        updateData
+      )) as TResponse<TStudent>;
+
+      if (res.error) {
+        toast.error(res.error.data.message, { id: toastId });
+      } else {
+        toast.success("Profile Info is updated successfully", { id: toastId });
+      }
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
+    }
     setIsModalOpen(false);
   };
 
@@ -67,7 +70,7 @@ const UpdateStudentInfoModal = ({ studentData }: { studentData: TStudent }) => {
         onCancel={() => setIsModalOpen(false)}
         footer={false}
       >
-        <PhForm onSubmit={onSubmit} defaultValues={newData}>
+        <PhForm onSubmit={onSubmit} defaultValues={newData} isWidthFull={true}>
           <Divider>Personal Info</Divider>
           <Row gutter={10}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
@@ -92,16 +95,17 @@ const UpdateStudentInfoModal = ({ studentData }: { studentData: TStudent }) => {
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <Controller
                 name="image"
-                render={({ field: { onChange, ...field } }) => (
+                render={({ field: { onChange, value, ...field } }) => (
                   <Form.Item label="Picture">
                     <Input
                       type="file"
+                      value={value?.fileName}
                       {...field}
                       onChange={(e) => onChange(e.target.files?.[0])}
                     />
                   </Form.Item>
                 )}
-              ></Controller>
+              />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <PhDatePicker name="dateOfBirth" label="Date Of Birth" />

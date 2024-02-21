@@ -1,4 +1,15 @@
 import { TAcademicDepartment, TAcademicFaculty, TAcademicSemester } from ".";
+export type TUser = {
+  _id: string;
+  id: string;
+  email: string;
+  needsPasswordChange: boolean;
+  role: string;
+  status: string;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
 
 export interface TStudent {
   name: TName;
@@ -14,9 +25,15 @@ export interface TStudent {
   localGuardian: TLocalGuardian;
   admissionSemester: TAcademicSemester;
   academicDepartment: TAcademicDepartment;
+  academicFaculty: TAcademicFaculty;
+  user: TUser;
+  profileImg: string;
+  createdAt: Date;
+  updatedAt: Date;
   _id: string;
   id: string;
   fullName: string;
+  __v: number;
 }
 
 export interface TGuardian {

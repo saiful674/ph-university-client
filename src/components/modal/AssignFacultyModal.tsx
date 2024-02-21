@@ -50,7 +50,7 @@ const AssignFacultyModal = ({ courseId }: { courseId: string }) => {
         onCancel={() => setIsModalOpen(false)}
         footer={false}
       >
-        <PhForm onSubmit={onSubmit}>
+        <PhForm onSubmit={onSubmit} isWidthFull={true}>
           <PhSelect
             mode="multiple"
             options={facultySelectOptions}
